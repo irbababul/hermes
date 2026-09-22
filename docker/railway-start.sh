@@ -50,6 +50,11 @@ if [ -n "${MODEL_API_KEY:-}${HERMES_CUSTOM_RAILWAY_API_KEY:-}" ]; then
     hermes config set model.key_env HERMES_CUSTOM_RAILWAY_API_KEY >/dev/null
 fi
 
+# Safety default for this Railway deployment: do not connect the WhatsApp
+# bridge unless the user explicitly re-enables it by changing this file back.
+# This overrides stale Railway Variables and persisted WA sessions.
+export WHATSAPP_ENABLED=false
+
 # Railway sets PORT for web services. Hermes gateway can run without exposing
 # HTTP, but keep the variable available for platforms that bind a port.
 export PORT="${PORT:-8080}"
